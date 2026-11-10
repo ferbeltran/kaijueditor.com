@@ -1,7 +1,157 @@
 <!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Download Kaiju</title>
-<!-- Always the latest Kaiju: the DMG of the newest release of ferbeltran/kaiju-updates (Scripts/release.sh). -->
-<meta http-equiv="refresh" content="0; url=https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg">
-<p>Downloading Kaiju… If it doesn't start, <a href="https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg">click here</a>.</p>
-<p><a href="/">Back to kaijueditor.com</a></p>
+<meta name="description" content="Download Kaiju for Mac: PCG editor for KORG KRONOS and Nautilus. 3-day free trial.">
+<link rel="icon" href="../img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Geist:wght@400..700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<!-- Always the latest Kaiju: the DMG of the newest release of ferbeltran/kaiju-updates (Scripts/release.sh).
+     Without JavaScript the meta refresh starts it. -->
+<noscript><meta http-equiv="refresh" content="1; url=https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg"></noscript>
+<style>
+:root {
+  /* Same tokens as the landing (index.html). */
+  --canvas: #0c100e; --surface: #151b18; --surface-2: #1b231f;
+  --ink: #edf2ed; --ink-soft: #a1b2a6; --hairline: rgba(237, 242, 237, 0.1);
+  --accent: #73cc7a; --accent-ink: #0b1a0d;
+  --display: "Archivo", "Avenir Next", system-ui, sans-serif;
+  --text: "Geist", system-ui, sans-serif;
+  --mono: "Geist Mono", ui-monospace, monospace;
+}
+html[lang="en"] [lang="es"], html[lang="es"] [lang="en"] { display: none !important; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto;
+  background: radial-gradient(1200px 600px at 50% -10%, #17241b 0%, var(--canvas) 60%) var(--canvas);
+  color: var(--ink); font: 400 16px/1.55 var(--text); -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+header, footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px clamp(16px, 4vw, 40px); }
+header img { height: 28px; width: auto; display: block; }
+.lang { display: flex; gap: 4px; }
+.lang button { font: 600 12px/1 var(--display); letter-spacing: 0.08em; color: var(--ink-soft); background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 8px; cursor: pointer; }
+.lang button[aria-pressed="true"] { color: var(--ink); border-color: var(--hairline); background: var(--surface); }
+
+main { display: grid; place-items: center; padding: 24px clamp(16px, 4vw, 40px) 48px; }
+.card { width: 100%; max-width: 640px; text-align: center; }
+.mascot { width: 132px; height: auto; margin: 0 auto 8px; display: block; }
+h1 { font: 800 clamp(30px, 6vw, 44px)/1.1 var(--display); font-stretch: 112%; letter-spacing: -0.01em; margin: 8px 0 12px; text-wrap: balance; }
+.lead { color: var(--ink-soft); margin: 0 auto; max-width: 46ch; text-wrap: pretty; }
+.lead a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.lead a:hover { text-decoration: underline; }
+
+.progress { height: 3px; max-width: 260px; margin: 22px auto 0; border-radius: 3px; background: var(--hairline); overflow: hidden; }
+.progress i { display: block; height: 100%; width: 40%; background: var(--accent); border-radius: 3px; animation: slide 1.4s ease-in-out infinite; }
+.started .progress i { animation: none; width: 100%; transition: width 0.4s ease-out; }
+@keyframes slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
+@media (prefers-reduced-motion: reduce) { .progress i { animation: none; width: 100%; } }
+
+.steps { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: left; counter-reset: step; }
+.steps li { background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 16px; counter-increment: step; }
+.steps li::before { content: counter(step); display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: color-mix(in oklab, var(--accent) 18%, transparent); color: var(--accent); font: 700 13px/1 var(--display); margin-bottom: 10px; }
+.steps b { display: block; font-weight: 600; margin-bottom: 2px; }
+.steps span { color: var(--ink-soft); font-size: 14px; }
+
+.btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.85rem 1.3rem; border-radius: 12px; font-weight: 600; text-decoration: none; border: 1px solid transparent; transition: background 0.15s, border-color 0.15s; }
+.btn--primary { background: var(--accent); color: var(--accent-ink); }
+.btn--ghost { border-color: rgba(237, 242, 237, 0.2); background: color-mix(in oklab, var(--surface) 70%, transparent); }
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover { background: #8bd890; }
+  .btn--ghost:hover { border-color: rgba(237, 242, 237, 0.4); }
+}
+.btn small { font-weight: 500; opacity: 0.72; }
+.note { margin: 22px 0 0; color: var(--ink-soft); font-size: 13px; }
+.mono { font-family: var(--mono); font-size: 0.85em; }
+
+footer { color: var(--ink-soft); font-size: 13px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--ink); }
+
+/* ?bought (the link in the Gumroad receipt): no "Buy", and step 3 is activating. */
+html:not(.bought) .if-bought, html.bought .if-trial { display: none !important; }
+
+@media (max-width: 620px) {
+  .steps { grid-template-columns: 1fr; }
+  .mascot { width: 108px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="/"><img src="../img/logo.png" width="900" height="297" alt="Kaiju PCG Editor"></a>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="es" aria-pressed="false">ES</button>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <img class="mascot" src="../img/Mascot.png" width="512" height="512" alt="">
+    <h1><span lang="en">Your download is starting</span><span lang="es">Tu descarga está empezando</span></h1>
+    <p class="lead">
+      <span lang="en">Kaiju for Mac, the latest version. If it doesn't start in a few seconds, <a class="dl" href="https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg">download it here</a>.</span>
+      <span lang="es">Kaiju para Mac, la versión más reciente. Si no empieza en unos segundos, <a class="dl" href="https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg">descárgala aquí</a>.</span>
+    </p>
+    <div class="progress" aria-hidden="true"><i></i></div>
+
+    <ol class="steps">
+      <li><b lang="en">Open Kaiju.dmg</b><b lang="es">Abre Kaiju.dmg</b>
+        <span lang="en">It's in your Downloads folder.</span><span lang="es">Está en tu carpeta Descargas.</span></li>
+      <li><b lang="en">Drag Kaiju to Applications</b><b lang="es">Arrastra Kaiju a Aplicaciones</b>
+        <span lang="en">The user manual (PDF) is in the same window.</span><span lang="es">El manual (PDF) está en la misma ventana.</span></li>
+      <li class="if-trial"><b lang="en">Open Kaiju</b><b lang="es">Abre Kaiju</b>
+        <span lang="en">3-day free trial with everything working, saving too.</span><span lang="es">Prueba gratis de 3 días con todo funcionando, también guardar.</span></li>
+      <li class="if-bought"><b lang="en">Activate it</b><b lang="es">Actívala</b>
+        <span lang="en">Open Kaiju, choose Kaiju › Activate Kaiju… and paste the licence key from your Gumroad receipt.</span><span lang="es">Abre Kaiju, elige Kaiju › Activar Kaiju… y pega la clave de licencia de tu recibo de Gumroad.</span></li>
+    </ol>
+
+    <div class="btns">
+      <a class="btn btn--primary if-trial" href="https://ferccino.gumroad.com/l/kaiju"><span lang="en">Buy licence</span><span lang="es">Comprar licencia</span> <small>$49</small></a>
+      <a class="btn btn--ghost" href="/"><span lang="en">Back to kaijueditor.com</span><span lang="es">Volver a kaijueditor.com</span></a>
+    </div>
+    <p class="note">
+      <span lang="en">macOS 15 or later · Apple silicon and Intel · Kaiju updates itself</span>
+      <span lang="es">macOS 15 o posterior · Apple silicon e Intel · Kaiju se actualiza sola</span>
+    </p>
+  </div>
+</main>
+
+<footer>
+  <span>© Kaiju</span>
+  <a class="mail" href="/"><span class="mono">support</span></a>
+</footer>
+
+<script>
+if (new URLSearchParams(location.search).has("bought")) document.documentElement.classList.add("bought");
+// Language as on the landing (same key, so the choice carries over).
+function setLang(l) {
+  document.documentElement.lang = l;
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+  try { localStorage.setItem("kaiju-lang", l); } catch (e) {}
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+let saved = null;
+try { saved = localStorage.getItem("kaiju-lang"); } catch (e) {}
+setLang(saved || ((navigator.language || "en").toLowerCase().startsWith("es") ? "es" : "en"));
+
+// Support address put together here, as on the landing (no plain address for spam robots).
+const MAIL = ["support", "kaijueditor.com"].join("@");
+const mail = document.querySelector(".mail");
+mail.href = "mailto:" + MAIL;
+mail.querySelector("span").textContent = MAIL;
+
+// Start the download; the page stays (a file download doesn't leave it).
+const DMG = "https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg";
+setTimeout(() => { location.href = DMG; document.body.classList.add("started"); }, 700);
+</script>
+</body>
+</html>
