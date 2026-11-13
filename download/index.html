@@ -98,13 +98,13 @@ html:not(.bought) .if-bought, html.bought .if-trial { display: none !important; 
     <img class="mascot" src="../img/Mascot.png" width="512" height="512" alt="">
     <h1><span lang="en">Your download for Mac is starting</span><span lang="es">Tu descarga para Mac está empezando</span></h1>
     <p class="lead">
-      <span lang="en">Kaiju for Mac, the latest version. If it doesn't start in a few seconds, <a class="dl" href="https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg">download it here</a>.</span>
-      <span lang="es">Kaiju para Mac, la versión más reciente. Si no empieza en unos segundos, <a class="dl" href="https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg">descárgala aquí</a>.</span>
+      <span lang="en"><span class="ver">Kaiju</span> for Mac, the latest version. If it doesn't start in a few seconds, <a class="dl" href="https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg">download it here</a>.</span>
+      <span lang="es"><span class="ver">Kaiju</span> para Mac, la versión más reciente. Si no empieza en unos segundos, <a class="dl" href="https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg">descárgala aquí</a>.</span>
     </p>
     <div class="progress" aria-hidden="true"><i></i></div>
 
     <ol class="steps">
-      <li><b lang="en">Open Kaiju.dmg</b><b lang="es">Abre Kaiju.dmg</b>
+      <li><b lang="en">Open <span class="file">Kaiju.dmg</span></b><b lang="es">Abre <span class="file">Kaiju.dmg</span></b>
         <span lang="en">It's in your Downloads folder.</span><span lang="es">Está en tu carpeta Descargas.</span></li>
       <li><b lang="en">Drag Kaiju to Applications</b><b lang="es">Arrastra Kaiju a Aplicaciones</b>
         <span lang="en">The user manual (PDF) is in the same window.</span><span lang="es">El manual (PDF) está en la misma ventana.</span></li>
@@ -149,9 +149,30 @@ const mail = document.querySelector(".mail");
 mail.href = "mailto:" + MAIL;
 mail.querySelector("span").textContent = MAIL;
 
-// Start the download; the page stays (a file download doesn't leave it).
-const DMG = "https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg";
-setTimeout(() => { location.href = DMG; document.body.classList.add("started"); }, 700);
+// Start the download; the page stays (a file download doesn't leave it). The newest release's DMG with the
+// version in its name ("Kaiju-1.0.0.dmg", asked to GitHub); if GitHub doesn't answer quickly, the fixed Kaiju.dmg.
+let dmg = "https://github.com/ferbeltran/kaiju-updates/releases/latest/download/Kaiju.dmg";
+let started = false;
+function start() {
+  if (started) return;
+  started = true;
+  document.querySelectorAll("a.dl").forEach(a => (a.href = dmg));
+  location.href = dmg;
+  document.body.classList.add("started");
+}
+fetch("https://api.github.com/repos/ferbeltran/kaiju-updates/releases/latest")
+  .then(r => r.json())
+  .then(rel => {
+    const asset = (rel.assets || []).find(a => /^Kaiju-.+\.dmg$/.test(a.name));
+    if (!asset || started) return;
+    dmg = asset.browser_download_url;
+    const version = (rel.name || "").replace(/^Kaiju\s*/, "") || asset.name.slice(6, -4);
+    document.querySelectorAll(".ver").forEach(e => (e.textContent = "Kaiju " + version));
+    document.querySelectorAll(".file").forEach(e => (e.textContent = asset.name));
+    start();
+  })
+  .catch(() => {});
+setTimeout(start, 2500);
 </script>
 </body>
 </html>
