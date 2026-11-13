@@ -200,6 +200,8 @@ p { text-wrap: pretty; }
 .plan h3 { font-size: var(--sc-t-lg); font-stretch: 105%; }
 .plan .amount { color: var(--sc-ink); font: 800 var(--sc-t-3xl)/1 var(--sc-font-display); font-stretch: 112%; letter-spacing: var(--sc-track-tight); margin: var(--sc-3) 0 0; font-variant-numeric: tabular-nums; }
 .plan .amount small { font: 500 var(--sc-t-base) var(--sc-font-text); color: var(--sc-ink-soft); letter-spacing: 0; }
+.plan .amount .was { font-weight: 500; color: var(--sc-ink-soft); text-decoration-thickness: 2px; margin-right: 0.15em; }
+.plan .launch { display: inline-block; margin: var(--sc-3) 0 0; padding: 2px 10px; border-radius: 999px; font: 700 12px/1.6 var(--sc-font-display); letter-spacing: 0.06em; text-transform: uppercase; color: var(--sc-accent-ink, #0b1a0d); background: var(--sc-accent, #73cc7a); }
 .plan p { color: var(--sc-ink-soft); margin: var(--sc-3) 0 0; max-width: 30rem; }
 .service { display: grid; grid-template-columns: auto 1fr; gap: var(--sc-5); align-items: center; padding: var(--sc-6) 0; border-top: 1px solid var(--sc-hairline-strong); }
 .service img { width: 92px; height: auto; }
@@ -258,8 +260,8 @@ p { text-wrap: pretty; }
         <p class="lead" lang="en">A Mac app for KRONOS and Nautilus PCG files: bring in sounds from any library, tidy your banks, build your set lists.</p>
         <p class="lead" lang="es">Una app para Mac para los PCG de KRONOS y Nautilus: trae sonidos de cualquier librería, ordena tus bancos, arma tus set lists.</p>
         <div class="btns">
-          <a class="btn btn--primary js-download" href="#"><span lang="en">Download free trial</span><span lang="es">Descarga la prueba gratis</span></a>
-          <a class="btn btn--ghost" href="#disk"><span lang="en">Buy license</span><span lang="es">Comprar licencia</span> <small>$49</small></a>
+          <a class="btn btn--primary js-download" href="#"><span lang="en">Download free trial for Mac</span><span lang="es">Descarga la prueba gratis para Mac</span></a>
+          <a class="btn btn--ghost" href="#disk"><span lang="en">Buy license</span><span lang="es">Comprar licencia</span> <small><s>$49</s> $35</small></a>
         </div>
         <p class="note" lang="en">3-day trial with everything working · macOS 15 or later · Apple silicon and Intel</p>
         <p class="note" lang="es">Prueba de 3 días con todo funcionando · macOS 15 o posterior · Apple silicon e Intel</p>
@@ -459,11 +461,12 @@ p { text-wrap: pretty; }
             <p class="amount">3 <small lang="en">days</small><small lang="es">días</small></p>
             <p lang="en">Every feature, saving included. No account, no card. After the trial your PCGs still open; activate to keep editing.</p>
             <p lang="es">Todas las funciones, guardar incluido. Sin cuenta ni tarjeta. Después de la prueba tus PCG siguen abriendo; activa para seguir editando.</p>
-            <div class="btns"><a class="btn btn--ghost js-download" href="#"><span lang="en">Download free trial</span><span lang="es">Descarga la prueba gratis</span></a></div>
+            <div class="btns"><a class="btn btn--ghost js-download" href="#"><span lang="en">Download free trial for Mac</span><span lang="es">Descarga la prueba gratis para Mac</span></a></div>
           </div>
           <div class="plan">
             <h3 lang="en">Kaiju license</h3><h3 lang="es">Licencia de Kaiju</h3>
-            <p class="amount">$49 <small>USD</small></p>
+            <p class="launch"><span lang="en">Launch price</span><span lang="es">Precio de lanzamiento</span></p>
+            <p class="amount"><s class="was">$49</s> $35 <small>USD</small></p>
             <p lang="en">One payment, no subscription. Up to 3 devices: Mac, and iPad when Kaiju Live comes out. Free updates for Kaiju 1.x.</p>
             <p lang="es">Un solo pago, sin suscripción. Hasta 3 dispositivos: Mac, y iPad cuando salga Kaiju Live. Actualizaciones gratis de Kaiju 1.x.</p>
             <div class="btns"><a class="btn btn--primary js-gumroad" href="#"><span lang="en">Buy license</span><span lang="es">Comprar licencia</span></a></div>
