@@ -206,6 +206,16 @@ p { text-wrap: pretty; }
 .service p { margin: 0; max-width: 46rem; color: var(--sc-ink-soft); }
 .service p b { color: var(--sc-ink); font-weight: 600; }
 .service a { color: var(--sc-accent); text-underline-offset: 3px; }
+.narf__logo { display: block; width: 92px; border-radius: var(--sc-r-md); background: #fff; }
+.narf__logo img { display: block; width: 100%; height: auto; border-radius: inherit; }
+.narf { display: grid; grid-template-columns: auto 1fr auto; gap: var(--sc-5); align-items: center; padding: var(--sc-6) 0; border-top: 1px solid var(--sc-hairline-strong); }
+.narf p { margin: 0; max-width: 46rem; color: var(--sc-ink-soft); }
+.narf p b { color: var(--sc-ink); font-weight: 600; }
+.narf a { color: var(--sc-accent); text-underline-offset: 3px; }
+.coupon { display: grid; justify-items: center; gap: var(--sc-1); padding: var(--sc-3) var(--sc-5); border: 1px dashed var(--sc-accent); border-radius: var(--sc-r-md); background: transparent; color: var(--sc-ink); cursor: pointer; }
+.coupon code { font: 700 var(--sc-t-xl)/1.1 var(--sc-font-mono); letter-spacing: var(--sc-track-wide); white-space: pre; color: var(--sc-accent); }
+.coupon__hint { font-size: var(--sc-t-xs); color: var(--sc-ink-soft); text-transform: uppercase; letter-spacing: var(--sc-track-wide); }
+.coupon:hover, .coupon:focus-visible { background: color-mix(in oklab, var(--sc-accent) 10%, transparent); }
 .foot { display: flex; flex-wrap: wrap; gap: var(--sc-3) var(--sc-6); justify-content: space-between; align-items: center; padding-top: var(--sc-5); border-top: 1px solid var(--sc-hairline); font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
 .foot a { color: var(--sc-ink-soft); }
 .foot img { height: 26px; width: auto; }
@@ -216,6 +226,9 @@ p { text-wrap: pretty; }
   .plan + .plan { padding-left: 0; border-left: 0; border-top: 1px solid var(--sc-hairline-strong); }
   .service { grid-template-columns: 1fr; }
   .service img { width: 72px; }
+  .narf { grid-template-columns: 1fr; }
+  .narf__logo { width: 72px; }
+  .coupon { justify-self: start; }
 }
 </style>
 </head>
@@ -476,6 +489,17 @@ p { text-wrap: pretty; }
           <p lang="en"><b>Rather not do it yourself?</b> Send us your PCG and tell us what you need: libraries merged into your setup, banks cleaned up, set lists for your next gig, or a KRONOS PCG ready for the Nautilus. We'll send a quote. <a class="js-mail" href="#">Request a quote</a></p>
           <p lang="es"><b>¿Prefieres no hacerlo tú?</b> Mándanos tu PCG y dinos qué necesitas: librerías integradas a tu configuración, bancos ordenados, set lists para tu próximo show o un PCG del KRONOS listo para el Nautilus. Te mandamos una cotización. <a class="js-mail" href="#">Pedir cotización</a></p>
         </div>
+        <div class="narf">
+          <a class="narf__logo" href="https://www.narfsounds.com/" target="_blank" rel="noopener"><img src="img/narfsounds.png" width="360" height="360" alt="NarfSounds"></a>
+          <div>
+            <p lang="en"><b>Need new cover sounds for your gigs?</b> Get the best sound libraries for your KORG KRONOS and Nautilus at <a href="https://www.narfsounds.com/" target="_blank" rel="noopener">NarfSounds</a>, and take 10% off all products at checkout with promo code:</p>
+            <p lang="es"><b>¿Necesitas sonidos nuevos de covers para tus shows?</b> Consigue las mejores librerías de sonidos para tu KORG KRONOS y Nautilus en <a href="https://www.narfsounds.com/" target="_blank" rel="noopener">NarfSounds</a>, y llévate 10% de descuento en todos los productos al pagar con el código:</p>
+          </div>
+          <button class="coupon js-copy" type="button" data-copy="NARF 10% KORG">
+            <code>NARF 10% KORG</code>
+            <span class="coupon__hint"><span lang="en">Copy</span><span lang="es">Copiar</span></span>
+          </button>
+        </div>
       </div>
       <footer class="foot">
         <img src="img/logo.png" width="900" height="297" alt="Kaiju">
@@ -586,6 +610,13 @@ function setLang(l) {
 document.querySelectorAll(".js-gumroad").forEach((a) => (a.href = LINKS.gumroad));
 document.querySelectorAll(".js-download").forEach((a) => (a.href = LINKS.download));
 document.querySelectorAll(".langs button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.set)));
+// The NarfSounds coupon copies itself; the hint says so for a moment.
+document.querySelectorAll(".js-copy").forEach((b) => b.addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); } catch (e) { return; }
+  const hint = b.querySelector(".coupon__hint"), was = hint.innerHTML;
+  hint.innerHTML = '<span lang="en">Copied</span><span lang="es">Copiado</span>';
+  setTimeout(() => (hint.innerHTML = was), 1600);
+}));
 let saved = null;
 try { saved = localStorage.getItem("kaiju-lang"); } catch (e) {}
 setLang(saved || ((navigator.language || "en").toLowerCase().startsWith("es") ? "es" : "en"));
